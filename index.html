@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Designer de Moda</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sketches.css">
+    <style>
+      .slideshow {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .slideshow-nav {
+        position: absolute;
+        /* place nav lower on the image so arrows sit below the midline */
+        top: 60%;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        width: 100%;
+        transform: translateY(-50%); /* keep centered relative to top */
+        pointer-events: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* vertically center the controls */
+        padding: 0 0.5rem;   /* bring controls slightly inward horizontally */
+        z-index: 10;
+      }
+
+      .slide-btn {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        pointer-events: auto;
+        transition: background-color 0.3s, transform 0.2s;
+        margin: 0 4px; /* small horizontal offset */
+      }
+
+      .slide-btn:hover {
+        background: rgba(0, 0, 0, 0.7);
+        transform: scale(1.1);
+      }
+
+      .slide-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: white;
+        stroke-width: 2.2;
+        fill: none;
+      }
+
+      /* Ensure slides themselves use object-fit and center content */
+      .slide img {
+        width: 100%;
+        height: 100%; /* keeps image centered and covers the slide */
+        object-position: center center; /* center the visible area */
+        display: block;
+      }
+      /* "Ver mais" button under each card */
+      .view-more-btn {
+        margin-top: 0.4rem;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid rgba(0,0,0,0.06);
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+        color: #111;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      }
+      .view-more-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+      /* Contact section styling: centered, card-like info */
+      .contact-grid { display: flex; justify-content: center; align-items: flex-start; gap: 2rem; }
+      .contact-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+        padding: 1.6rem;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 640px;
+        width: 100%;
+        box-shadow: 0 8px 26px rgba(18, 18, 18, 0.06);
+        border: 1px solid rgba(0,0,0,0.04);
+      }
+      .contact-card h3 { margin-top: 0; margin-bottom: 0.4rem; font-size: 1.25rem; }
+      .contact-intro { color: #ffffff; margin-bottom: 0.8rem; }
+      .contact-list { list-style: none; padding: 0; margin: 0.6rem 0 0; display: flex; flex-direction: column; gap: 0.6rem; align-items: center; }
+      .contact-list li { display: flex; align-items: center; gap: 0.6rem; color: #ffffff; font-weight: 500; }
+      .contact-list svg { flex: 0 0 26px; width: 26px; height: 26px; color: #666; }
+      .social-links { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.8rem; }
+      .social-btn { width: 42px; height: 42px; display: inline-grid; place-items: center; border-radius: 8px; background: #111; color: #fff; opacity: 0.95; transition: transform 0.12s ease, opacity 0.12s ease; }
+      .social-btn:hover { transform: translateY(-3px); opacity: 1; }
+      @media (max-width: 768px) {
+        .contact-grid { flex-direction: column; align-items: center; }
+        .contact-card { padding: 1.2rem; max-width: 92%; }
+      }
+    </style>
+  <meta name="description" content="Portfólio de Designer de Moda — colecções, serviços e contacto. Especialista em roupa desportiva, casual, gala e jeans.">
+</head>
+<body>
+
+  <!-- Header/Navbar -->
+  <a href="#main-content" class="skip-link">Saltar para o conteúdo</a>
+  <header role="banner">
+    <nav class="navbar navbar-expand-lg navbar-dark container" role="navigation" aria-label="Main navigation">
+      <a class="navbar-brand" href="#">Diana Braga</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">Sobre Mim</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">Processo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfólio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Meus Contactos</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" role="region" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title" class="display-4">Designer de Moda — Braga, Portugal</h1>
+      <p class="lead">Colecções pensadas para estilo, conforto e sustentabilidade.</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-5" role="region" aria-labelledby="about-title">
+    <div class="container">
+      <h2 id="about-title" class="section-title">Sobre Mim</h2>
+      
+      <div class="about-grid">
+        <div class="about-image">
+          <!-- Substitua o src pela sua foto real -->
+          <img src="img/foto.png" 
+               alt="Diana Braga - Designer de Moda"
+               loading="eager"
+               decoding="sync">
+        </div>
+        <div class="about-content">
+          <p class="lead">Sou designer de moda especializada em desporto, roupa casual, roupa de gala e calças jeans. Crio colecções originais, desde a ideia inicial até à ficha técnica final, sempre atento às tendências, conforto e materiais de qualidade.</p>
+          
+          <p class="lead">Com formação em Design de Moda e experiência em desenvolvimento de produtos, trago uma abordagem única que combina estética contemporânea com funcionalidade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Creative Process Section -->
+  <section id="process" class="py-5" role="region" aria-labelledby="process-title">
+    <div class="container">
+      <h2 id="process-title" class="section-title">Processo Criativo</h2>
+      <p class="lead text-center">Do esboço à peça final, cada design começa com uma ideia no papel. Explore alguns dos meus sketches e desenvolvimento de conceitos.</p>
+      
+      <div class="sketches-grid">
+        <!-- Substitua estas imagens pelos seus sketches reais -->
+        <article class="sketch-card">
+          <img loading="lazy" src="img/desenho.jpg" alt="Sketch de vestido com detalhes técnicos">
+          <div class="sketch-info">
+            <h3 class="sketch-title">Vestido de Festa - Conceito</h3>
+            <p class="sketch-desc">Desenvolvimento inicial com foco em drapeados e movimento</p>
+          </div>
+        </article>
+        <article class="sketch-card">
+          <img loading="lazy" src="img/fase1.jpg" alt="Sketch de conjunto esportivo">
+          <div class="sketch-info">
+            <h3 class="sketch-title">Coleção Sport - Estudos</h3>
+            <p class="sketch-desc">Exploração de tecidos técnicos e ergonomia</p>
+          </div>
+        </article>
+        <article class="sketch-card">
+          <img loading="lazy" src="img/fase3.jpg" alt="Sketch de calças jeans com anotações">
+          <div class="sketch-info">
+            <h3 class="sketch-title">Jeans - Detalhes Técnicos</h3>
+            <p class="sketch-desc">Estudos de costuras e acabamentos</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <h3>1. Ideação</h3>
+          <p>Começamos com sketches à mão livre, explorando silhuetas e possibilidades</p>
+        </div>
+        <div class="process-step">
+          <h3>2. Desenvolvimento</h3>
+          <p>Refinamento do design, escolha de materiais e detalhes técnicos</p>
+        </div>
+        <div class="process-step">
+          <h3>3. Prototipagem</h3>
+          <p>Criação de mockups e ajustes para perfeição do caimento</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-5" role="region" aria-labelledby="portfolio-title">
+    <div class="container">
+      <h2 id="portfolio-title" class="section-title">Portfólio</h2>
+
+      <!-- Filter Buttons -->
+      <div class="text-center filter-btns mb-4" role="toolbar" aria-label="Filtrar portfólio">
+        <button class="btn btn-outline-light active" data-filter="all">Todos</button>
+        <button class="btn btn-outline-light" data-filter="desporto">Desporto</button>
+        <button class="btn btn-outline-light" data-filter="casual">Casual</button>
+        <button class="btn btn-outline-light" data-filter="gala">Gala</button>
+        <button class="btn btn-outline-light" data-filter="jeans">Jeans</button>
+      </div>
+
+      <div id="portfolio-grid">
+        <!-- Portfolio Items -->
+        <div class="portfolio-item" data-category="casual">
+          <article class="portfolio-card" aria-label="Fato de Treino">
+            <div class="slideshow" aria-label="Fotos do Fato de Treino">
+              <div class="slideshow-nav">
+                <button class="slide-btn prev" aria-label="Foto anterior">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button class="slide-btn next" aria-label="Próxima foto">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/vestido1.jpg" alt="Vestido- Vista">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/vestido2.jpg" alt="Conjunto Treino Masculino - Vista lateral">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/vestido3.jpg" alt="Conjunto Treino Masculino - Detalhes">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Vestidos</h3>
+              <p class="card-text">Corte moderno e acabamento técnico — ideal para treino e uso diário.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="desporto">
+          <article class="portfolio-card" aria-label="Leggings Femininas">
+            <div class="slideshow" aria-label="Fotos das Leggings Femininas">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/leggins frente.png" alt="Leggings Femininas - Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/leggins costas.png" alt="Leggings Femininas - Costas">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Leggings Femininas</h3>
+              <p class="card-text">Conforto e estilo, ideal para yoga e fitness.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="casual">
+          <article class="portfolio-card" aria-label="T-Shirt Oversized">
+            <div class="slideshow" aria-label="Fotos da T-Shirt Oversized">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/tshirt frente.png" alt="T-Shirt Oversized - Vista frente">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/tshirt costas.png" alt="T-Shirt Oversized - Costas">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">T-Shirt Oversized</h3>
+              <p class="card-text">Estilo urbano e corte moderno.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="casual">
+          <article class="portfolio-card" aria-label="Saias">
+            <div class="slideshow" aria-label="Fotos de Saias">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/saia2.jpg" alt="Saia- Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/saia.png" alt="Saia - Vista frontal">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Saias</h3>
+              <p class="card-text">Versáteis e elegantes — estudos de movimento e caimento.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="gala">
+          <article class="portfolio-card" aria-label="Vestidos Longos">
+            <div class="slideshow" aria-label="Fotos de Vestidos Longos">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/roupa de gala1.jpg" alt="Vestido de Festa - Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/roupa de gala2.jpg" alt="Vestido de Festa - Vista das costas">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/roupa de gala3.jpg" alt="Vestido de Festa - Detalhes do bordado">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Vestidos Longos</h3>
+              <p class="card-text">Peças de gala com tecidos nobres e acabamento premium.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="desporto">
+          <article class="portfolio-card" aria-label="Fato de Treino (Masculino e Feminino)">
+            <div class="slideshow" aria-label="Fotos do Fato de Treino Masculino e Feminino">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/fato d etreino femenino.png" alt="Fato Femenino - Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/fato treino masculino.png" alt="Fato Masculino - Vista frontal">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Fato de Treino (M/F)</h3>
+              <p class="card-text">Versões masculinas e femininas com detalhe técnico e acabamento cuidadoso.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="jeans">
+          <article class="portfolio-card" aria-label="Calças Skinny">
+            <div class="slideshow" aria-label="Fotos das Calças Skinny">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/calças frente.png" alt="Calças Skinny - Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/caças costas.png" alt="Calças Skinny - Costas">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Calças Skinny</h3>
+              <p class="card-text">Tecido stretch confortável e durável.</p>
+            </div>
+          </article>
+        </div>
+        <div class="portfolio-item" data-category="desporto">
+          <article class="portfolio-card" aria-label="Roupa de Ginásio">
+            <div class="slideshow" aria-label="Fotos de Roupa de Ginásio">
+                <div class="slideshow-nav">
+                  <button class="slide-btn prev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="slide-btn next" aria-label="Próxima foto">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              <div class="slide active">
+                <img loading="lazy" decoding="async" src="img/roupa d eginasio femenina.png" alt="Roupa d eGinásio Femenina - Vista frontal">
+              </div>
+              <div class="slide">
+                <img loading="lazy" decoding="async" src="img/roupa de ginasio masculina.png" alt="Roupa de ginásio Masculina - Vista frontal">
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Roupa de Ginásio</h3>
+              <p class="card-text">Peças funcionais e resistentes para treino intenso.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-5" role="region" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 id="contact-title" class="section-title">Meus Contactos</h2>
+      
+      <div class="contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <div class="contact-card">
+            <h3>Vamos Conversar!</h3>
+            <p class="contact-intro">Estou disponível para novos projetos, consultorias e colaborações. Entre em contacto para marcarmos uma reunião.</p>
+            
+            <ul class="contact-list">
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>dianabraga82@gmail.com</span>
+              </li>
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <span>(+351) 914 458 960</span>
+              </li>
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Braga, Portugal</span>
+              </li>
+            </ul>
+
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="#" class="social-btn" aria-label="LinkedIn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" class="social-btn" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 Diana Braga – Designer de Moda | Braga, Portugal</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Lightbox markup -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox-close" aria-label="Fechar (Esc)">&times;</button>
+    <div class="lightbox-nav" aria-hidden="true">
+      <button class="lightbox-prev" aria-label="Anterior">◀</button>
+      <button class="lightbox-next" aria-label="Próximo">▶</button>
+    </div>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Filter Script + smooth scroll -->
+  <script>
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    const filterButtons = document.querySelectorAll('.filter-btns .btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    function setFilter(filter){
+      filterButtons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-btns .btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      const btn = Array.from(filterButtons).find(b => b.getAttribute('data-filter') === filter);
+      if(btn){ btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
+
+      portfolioItems.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        if(filter === 'all' || cat === filter){
+          item.style.display = '';
+          item.animate([{ opacity:0, transform:'translateY(8px)' },{ opacity:1, transform:'translateY(0)' }],{ duration:260, easing:'cubic-bezier(.2,.8,.2,1)' });
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => setFilter(btn.getAttribute('data-filter')));
+    });
+
+    // keyboard support
+    filterButtons.forEach(btn => btn.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); btn.click(); }
+    }));
+
+    // set initial filter
+    setFilter('all');
+  </script>
+
+  <script>
+    // Client-side form handling + Formspree
+    (function(){
+      const form = document.getElementById('contact-form');
+      if(!form) return;
+      const statusEl = document.getElementById('form-status');
+      const submitBtn = document.getElementById('submit-btn');
+
+      function showStatus(msg, ok){
+        statusEl.textContent = msg;
+        statusEl.classList.toggle('success', !!ok);
+        statusEl.classList.toggle('error', !ok);
+      }
+
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        // simple validation
+        const name = form.querySelector('[name="name"]').value.trim();
+        const email = form.querySelector('[name="email"]').value.trim();
+        const message = form.querySelector('[name="message"]').value.trim();
+
+        if(!name || !email || !message){
+          showStatus('Por favor, preencha todos os campos.', false);
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'A enviar...';
+        showStatus('', true);
+
+        try{
+          // use form.action (Formspree) - browser-friendly fetch
+          const resp = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+
+          const data = await resp.json().catch(()=> ({}));
+          if(resp.ok){
+            showStatus('Mensagem enviada com sucesso. Obrigado!', true);
+            form.reset();
+          } else {
+            const err = (data && data.error) ? data.error : 'Ocorreu um erro ao enviar. Tente novamente mais tarde.';
+            showStatus(err, false);
+          }
+        }catch(err){
+          showStatus('Falha de rede. Por favor verifique a ligação e tente novamente.', false);
+        }finally{
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar Mensagem';
+        }
+      });
+    })();
+  </script>
+
+  <!-- Slideshow script -->
+  <script>
+    // Initialize all slideshows with navigation
+    function initSlideshows() {
+      const slideshows = document.querySelectorAll('.slideshow');
+      
+      slideshows.forEach(slideshow => {
+        const slides = slideshow.querySelectorAll('.slide');
+        const prevBtn = slideshow.querySelector('.prev');
+        const nextBtn = slideshow.querySelector('.next');
+        let currentSlide = 0;
+        let slideInterval;
+        
+        function showSlide(index) {
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (index + slides.length) % slides.length;
+          slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+          showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+          showSlide(currentSlide - 1);
+        }
+
+        // Setup navigation
+        if(prevBtn) prevBtn.addEventListener('click', () => {
+          prevSlide();
+          resetInterval();
+        });
+
+        if(nextBtn) nextBtn.addEventListener('click', () => {
+          nextSlide();
+          resetInterval();
+        });
+
+        // Auto advance
+        function startInterval() {
+          slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetInterval() {
+          clearInterval(slideInterval);
+          startInterval();
+        }
+
+        // Start automatic slideshow
+        startInterval();
+
+        // Pause on hover
+        slideshow.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slideshow.addEventListener('mouseleave', startInterval);
+
+        // Preload images
+        slides.forEach(slide => {
+          const img = slide.querySelector('img');
+          if (img) {
+            const newImg = new Image();
+            newImg.src = img.src;
+          }
+        });
+      });
+    }
+
+    // Start slideshows when page loads
+    document.addEventListener('DOMContentLoaded', initSlideshows);
+  </script>
+
+  <script>
+    // Header shrink on scroll
+    (function(){
+      const header = document.querySelector('header');
+      if(!header) return;
+      // make header sticky by adding the class
+      header.classList.add('sticky-header');
+
+      const shrinkOn = 60; // px scrolled before shrinking
+      let lastScroll = 0;
+
+      function onScroll(){
+        const sc = window.scrollY || window.pageYOffset;
+        if(sc > shrinkOn){
+          header.classList.add('shrink');
+        } else {
+          header.classList.remove('shrink');
+        }
+        lastScroll = sc;
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      // run once to set initial state
+      onScroll();
+    })();
+  </script>
+
+  <script>
+    // Compute header height and set CSS variable so body padding equals header height
+    (function(){
+      const header = document.querySelector('header');
+      if(!header) return;
+
+      function updateHeaderHeight(){
+        const h = header.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--header-height', h + 'px');
+      }
+
+      // update on load and resize (debounced)
+      window.addEventListener('load', updateHeaderHeight);
+      let t;
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(updateHeaderHeight, 120); });
+      // run once immediately
+      updateHeaderHeight();
+    })();
+  </script>
+
+  <!-- Lightbox script -->
+  <script>
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const closeBtn = lightbox.querySelector('.lightbox-close');
+      const prevBtn = lightbox.querySelector('.lightbox-prev');
+      const nextBtn = lightbox.querySelector('.lightbox-next');
+
+      // collect gallery images (only those inside portfolio-grid)
+      const galleryImages = Array.from(document.querySelectorAll('#portfolio-grid img'));
+      // activeGallery is the current set the lightbox navigates over (can be a subset for each card)
+      let activeGallery = galleryImages.slice();
+      let currentIndex = -1;
+
+      // openLightbox now supports an optional list (array of image elements) to scope navigation
+      function openLightbox(index, list){
+        if(list && Array.isArray(list) && list.length) {
+          activeGallery = list.slice();
+        } else {
+          activeGallery = galleryImages;
+        }
+
+        const img = activeGallery[index];
+        if(!img) return;
+        currentIndex = index;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightboxCaption.textContent = img.getAttribute('data-caption') || img.alt || '';
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function closeLightbox(){
+        lightbox.classList.remove('show');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+        // reset activeGallery to full gallery to avoid surprises
+        activeGallery = galleryImages;
+        currentIndex = -1;
+      }
+
+      function showNext(){
+        if(currentIndex < 0) return;
+        currentIndex = (currentIndex + 1) % activeGallery.length;
+        openLightbox(currentIndex, activeGallery);
+      }
+
+      function showPrev(){
+        if(currentIndex < 0) return;
+        currentIndex = (currentIndex - 1 + activeGallery.length) % activeGallery.length;
+        openLightbox(currentIndex, activeGallery);
+      }
+
+      // Delegate click on portfolio images (default: open within the full gallery)
+      document.getElementById('portfolio-grid').addEventListener('click', function(e){
+        const img = e.target.closest('img');
+        if(!img) return;
+        const parentCard = img.closest('.portfolio-card');
+        if(!parentCard) return; // only open for portfolio images
+
+        const idx = galleryImages.indexOf(img);
+        if(idx !== -1){
+          openLightbox(idx, galleryImages);
+        }
+      });
+
+      // Close controls
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(e){
+        if(e.target === lightbox) closeLightbox();
+      });
+      // Nav buttons
+      nextBtn.addEventListener('click', function(e){ e.stopPropagation(); showNext(); });
+      prevBtn.addEventListener('click', function(e){ e.stopPropagation(); showPrev(); });
+
+      // Keyboard
+      document.addEventListener('keydown', function(e){
+        if(!lightbox.classList.contains('show')) return;
+        if(e.key === 'Escape') closeLightbox();
+        if(e.key === 'ArrowRight') showNext();
+        if(e.key === 'ArrowLeft') showPrev();
+      });
+
+      // When images change via slideshow, keep galleryImages up to date (simple approach)
+      // Rebuild on window focus (helps if dynamic changes occur)
+      window.addEventListener('focus', function(){
+        const imgs = Array.from(document.querySelectorAll('#portfolio-grid img'));
+        if(imgs.length !== galleryImages.length){
+          galleryImages.length = 0;
+          imgs.forEach(i => galleryImages.push(i));
+        }
+        // also keep activeGallery consistent if it was the full set
+        if(activeGallery === galleryImages) activeGallery = galleryImages;
+      });
+
+      // Expose helper functions so other scripts can open the lightbox
+      // openLightboxForImg: opens in the context of the full gallery (default behavior)
+      window.openLightboxForImg = function(img){
+        const idx = galleryImages.indexOf(img);
+        if(idx !== -1) openLightbox(idx, galleryImages);
+      };
+
+      window.openLightboxForIndex = function(i){
+        if(typeof i === 'number' && i >= 0 && i < galleryImages.length) openLightbox(i, galleryImages);
+      };
+
+      // openLightboxForCard: opens the lightbox scoped to images inside a specific .portfolio-card
+      window.openLightboxForCard = function(cardEl, startImg){
+        if(!cardEl) return;
+        const imgs = Array.from(cardEl.querySelectorAll('img'));
+        if(!imgs.length) return;
+        const startIndex = startImg ? Math.max(0, imgs.indexOf(startImg)) : 0;
+        openLightbox(startIndex, imgs);
+      };
+    })();
+  </script>
+
+  <!-- Insert "Ver mais" buttons under each portfolio card and wire to lightbox -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.portfolio-card').forEach(card => {
+        const body = card.querySelector('.card-body');
+        if(!body) return;
+        // Avoid adding duplicate buttons
+        if(body.querySelector('.view-more-btn')) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'view-more-btn';
+        btn.textContent = 'Ver mais';
+        btn.setAttribute('aria-label', 'Ver mais — abrir imagem');
+
+        btn.addEventListener('click', function(e){
+          e.stopPropagation();
+          // Open the lightbox scoped to this card's images; prefer the active slide if present
+          const activeSlideImg = card.querySelector('.slide.active img') || card.querySelector('img');
+          if(window.openLightboxForCard) {
+            window.openLightboxForCard(card, activeSlideImg);
+          } else if(activeSlideImg && window.openLightboxForImg) {
+            window.openLightboxForImg(activeSlideImg);
+          }
+        });
+
+        body.appendChild(btn);
+      });
+    });
+  </script>
+
+</body>
+</html>
